@@ -111,13 +111,15 @@ with st.sidebar:
 
     # -- Model catalogs per provider --
     OPENROUTER_MODELS = [
-        "google/gemma-3-27b-it:free",
+        "meta-llama/llama-4-maverick:free",
         "meta-llama/llama-4-scout:free",
         "deepseek/deepseek-chat-v3-0324:free",
-        "qwen/qwen3-235b-a22b:free",
+        "deepseek/deepseek-r1-zero:free",
+        "google/gemini-2.5-pro-exp-03-25:free",
         "mistralai/mistral-small-3.1-24b-instruct:free",
-        "google/gemma-3-12b-it:free",
+        "nvidia/llama-3.1-nemotron-nano-8b-v1:free",
         "nousresearch/deephermes-3-llama-3-8b-preview:free",
+        "qwen/qwen2.5-vl-3b-instruct:free",
     ]
     KIMI_MODELS = [
         "moonshot-v1-8k",
