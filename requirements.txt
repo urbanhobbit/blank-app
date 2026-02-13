@@ -1,1 +1,6 @@
-streamlit
+streamlit>=1.30.0
+requests>=2.31.0
+pyvis>=0.3.2
+networkx>=3.2
+python-louvain>=0.16
+streamlit-components-v1>=0.1.0
