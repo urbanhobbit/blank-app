@@ -109,33 +109,55 @@ with st.sidebar:
         help="Select your LLM provider",
     )
 
+    # -- Model catalogs per provider --
+    OPENROUTER_MODELS = [
+        "google/gemma-3-27b-it:free",
+        "meta-llama/llama-4-scout:free",
+        "deepseek/deepseek-chat-v3-0324:free",
+        "qwen/qwen3-235b-a22b:free",
+        "mistralai/mistral-small-3.1-24b-instruct:free",
+        "google/gemma-3-12b-it:free",
+        "nousresearch/deephermes-3-llama-3-8b-preview:free",
+    ]
+    KIMI_MODELS = [
+        "moonshot-v1-8k",
+        "moonshot-v1-32k",
+        "moonshot-v1-128k",
+    ]
+    OPENAI_MODELS = [
+        "gpt-4o-mini",
+        "gpt-4o",
+        "gpt-4-turbo",
+        "gpt-3.5-turbo",
+    ]
+    OLLAMA_MODELS = [
+        "gemma3",
+        "llama3",
+        "mistral",
+        "deepseek-r1",
+        "qwen2.5",
+        "phi3",
+    ]
+
     if provider == "OpenRouter":
         base_url = "https://openrouter.ai/api/v1"
-        model = st.text_input(
-            "Model",
-            value="google/gemma-3-27b-it:free",
-            help="e.g. google/gemma-3-27b-it:free, meta-llama/llama-4-scout:free, deepseek/deepseek-chat-v3-0324:free",
-        )
+        model = st.selectbox("Model", OPENROUTER_MODELS)
         api_key = st.text_input("API Key", type="password", help="Get yours at openrouter.ai/keys")
     elif provider == "Kimi (Moonshot)":
         base_url = "https://api.moonshot.cn/v1"
-        model = st.text_input(
-            "Model",
-            value="moonshot-v1-8k",
-            help="e.g. moonshot-v1-8k, moonshot-v1-32k, moonshot-v1-128k",
-        )
+        model = st.selectbox("Model", KIMI_MODELS)
         api_key = st.text_input("API Key", type="password", help="Get yours at platform.moonshot.cn")
     elif provider == "OpenAI":
         base_url = "https://api.openai.com/v1"
-        model = st.text_input("Model", value="gpt-4o-mini")
+        model = st.selectbox("Model", OPENAI_MODELS)
         api_key = st.text_input("API Key", type="password", help="Required for OpenAI")
     elif provider == "Ollama (local)":
         base_url = st.text_input("API Base URL", value="http://localhost:11434/v1")
-        model = st.text_input("Model", value="gemma3", help="ollama pull gemma3")
+        model = st.selectbox("Model", OLLAMA_MODELS, help="ollama pull <model>")
         api_key = ""
     else:
-        base_url = st.text_input("API Base URL", value="http://localhost:11434/v1")
-        model = st.text_input("Model", value="gemma3")
+        base_url = st.text_input("API Base URL")
+        model = st.text_input("Model")
         api_key = st.text_input("API Key (optional)", type="password")
 
     # Connection test button
