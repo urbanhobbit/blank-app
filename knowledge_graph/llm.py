@@ -37,6 +37,11 @@ def call_llm(
     if api_key:
         headers["Authorization"] = f"Bearer {api_key}"
 
+    # OpenRouter requires these headers
+    if "openrouter.ai" in base_url:
+        headers["HTTP-Referer"] = "https://github.com/knowledge-graph-generator"
+        headers["X-Title"] = "AI Knowledge Graph Generator"
+
     payload = {
         "model": model,
         "messages": [
@@ -55,7 +60,12 @@ def call_llm(
     }
 
     resp = requests.post(url, headers=headers, json=payload, timeout=120)
-    resp.raise_for_status()
+    if not resp.ok:
+        try:
+            detail = resp.json().get("error", {}).get("message", resp.text[:300])
+        except Exception:
+            detail = resp.text[:300]
+        raise RuntimeError(f"LLM API error {resp.status_code}: {detail}")
     data = resp.json()
 
     return data["choices"][0]["message"]["content"]
